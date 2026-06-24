@@ -1,10 +1,18 @@
 const API_URL = 'http://localhost:3000/api/cursos';
 
+let allCursos = []; // Variable global para guardar todos los cursos
+
 document.addEventListener('DOMContentLoaded', () => {
     loadCursos();
     
     const form = document.getElementById('cursoForm');
     form.addEventListener('submit', handleFormSubmit);
+
+    // Evento para el checkbox de filtro
+    const filtro = document.getElementById('filtroActivos');
+    if (filtro) {
+        filtro.addEventListener('change', renderCursos);
+    }
 });
 
 // Obtener y mostrar cursos
@@ -16,39 +24,51 @@ async function loadCursos() {
         
         if (!response.ok) throw new Error('Error al obtener los cursos');
         
-        const cursos = await response.json();
-        
-        if (cursos.length === 0) {
-            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No hay cursos registrados todavía.</p>';
-            return;
-        }
-
-        grid.innerHTML = '';
-        cursos.forEach(curso => {
-            const card = document.createElement('div');
-            card.className = 'glass-card course-card';
-            
-            // Determinar color de badge si está activo o no
-            const badgeBg = curso.Activo ? 'rgba(20, 184, 166, 0.1)' : 'rgba(236, 72, 153, 0.1)';
-            const badgeColor = curso.Activo ? 'var(--accent)' : 'var(--secondary)';
-            const statusText = curso.Activo ? 'Activo' : 'Inactivo';
-
-            card.innerHTML = `
-                <span class="course-badge" style="background: ${badgeBg}; color: ${badgeColor};">${statusText}</span>
-                <h3 class="course-title">${curso.Nombre}</h3>
-                <p style="color: var(--text-muted); margin-bottom: 1rem;">Categoría: ${curso.Categoria}</p>
-                <div class="course-info">
-                    <span>⏱ ${curso.Duracion} horas</span>
-                    <span>👥 ${curso.CuposDisponibles} cupos</span>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
+        allCursos = await response.json();
+        renderCursos();
 
     } catch (error) {
         console.error(error);
         grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--secondary);">Error de conexión con el servidor.</p>';
     }
+}
+
+// Función separada para renderizar (y filtrar si es necesario)
+function renderCursos() {
+    const grid = document.getElementById('coursesGrid');
+    const filtro = document.getElementById('filtroActivos');
+    
+    // Verificamos si el checkbox está marcado
+    let cursosAMostrar = allCursos;
+    if (filtro && filtro.checked) {
+        cursosAMostrar = allCursos.filter(curso => curso.Activo === true);
+    }
+
+    if (cursosAMostrar.length === 0) {
+        grid.innerHTML = '<p style="text-align: center; width: 100%;">No se encontraron cursos.</p>';
+        return;
+    }
+
+    grid.innerHTML = '';
+    cursosAMostrar.forEach(curso => {
+        const card = document.createElement('div');
+        card.className = 'course-card';
+        
+        // Estilos ultra-básicos en línea por si no están en el CSS
+        const badgeColor = curso.Activo ? '#28a745' : '#dc3545';
+        const statusText = curso.Activo ? 'Activo' : 'Inactivo';
+
+        card.innerHTML = `
+            <span class="course-badge" style="background-color: ${badgeColor};">${statusText}</span>
+            <h3 class="course-title">${curso.Nombre}</h3>
+            <p><strong>Categoría:</strong> ${curso.Categoria}</p>
+            <div class="course-info">
+                <p>⏱ ${curso.Duracion} horas</p>
+                <p>👥 ${curso.CuposDisponibles} cupos</p>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
 }
 
 // Registrar nuevo curso
