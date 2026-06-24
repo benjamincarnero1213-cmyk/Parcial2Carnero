@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Plataforma de gestión y registro de cursos de alta calidad. Aprende con los mejores.">
+    <title>Cursos Parcial 2</title>
+</head>
+
+<body>
+
+
+    <header>
+        <nav>
+            <div class="logo">CursosCarnero</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#institucional">Nosotros</a></li>
+                <li><a href="#registro">Registrar Curso</a></li>
+                <li><a href="#cursos">Explorar Cursos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Lleva tu educación al <span>siguiente nivel</span></h1>
+            <p>Descubre una plataforma moderna, rápida y segura para gestionar tus cursos, administrar alumnos y llevar
+                el control de cupos en tiempo real.</p>
+            <a href="#cursos" class="btn btn-primary">Ver Cursos Disponibles</a>
+        </div>
+    </section>
+
+
+    <section id="institucional" class="section-padding">
+        <h2 class="section-title">Sobre Nosotros</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <h3>Gestión de Cursos</h3>
+                <br>
+                <p>En CursosCarnero nos dedicamos a brindar las mejores herramientas tecnológicas para instituciones
+                    educativas. Nuestra misión es facilitar el acceso al conocimiento y optimizar la administración
+                    académica.</p>
+                <p>Con nuestra plataforma, podrás crear y listar cursos al instante, manteniendo siempre un control
+                    preciso sobre la duración y la disponibilidad de cupos.</p>
+            </div>
+            <div class="glass-card">
+                <h3>Nuestros Valores</h3>
+                <ul style="margin-top: 1rem; color: var(--text-muted); padding-left: 1.5rem; line-height: 2;">
+                    <li>Innovación tecnológica constante</li>
+                    <li>Compromiso con el aprendizaje</li>
+                    <li>Seguridad y transparencia de datos</li>
+                    <li>Diseño centrado en el usuario</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="registro" class="section-padding" style="background: rgba(0,0,0,0.2);">
+        <h2 class="section-title">Registrar Nuevo Curso</h2>
+        <div class="form-container glass-card">
+            <form id="cursoForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Curso</label>
+                    <input type="text" id="nombre" class="form-control" placeholder="Ej. Programación Avanzada"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Categoría</label>
+                    <input type="text" id="categoria" class="form-control" placeholder="Ej. Tecnología" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="duracion">Duración (en horas)</label>
+                    <input type="number" id="duracion" class="form-control" placeholder="Ej. 40" required min="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="cupos">Cupos Disponibles</label>
+                    <input type="number" id="cupos" class="form-control" placeholder="Ej. 30" required min="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="activo">¿Curso Activo?</label>
+                    <select id="activo" class="form-control" required>
+                        <option value="true">Sí, está activo</option>
+                        <option value="false">No, está inactivo</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Registrar
+                    Curso</button>
+                <div id="formMessage" style="margin-top: 1rem; text-align: center; font-weight: 600;"></div>
+            </form>
+        </div>
+    </section>
+
+
+    <section id="cursos" class="section-padding">
+        <h2 class="section-title">Listado de Cursos</h2>
+        <div class="courses-grid" id="coursesGrid">
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Parcial2Carnero. Todos los derechos reservados.</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem;">Desarrollado para el Parcial 2</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
