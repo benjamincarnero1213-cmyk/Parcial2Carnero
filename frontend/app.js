@@ -60,11 +60,11 @@ async function handleFormSubmit(event) {
     
     // Recolectar datos
     const nuevoCurso = {
-        nombre: document.getElementById('nombre').value,
-        categoria: document.getElementById('categoria').value,
-        duracion: parseInt(document.getElementById('duracion').value),
-        cuposDisponibles: parseInt(document.getElementById('cupos').value),
-        activo: document.getElementById('activo').value === 'true'
+        Nombre: document.getElementById('nombre').value,
+        Categoria: document.getElementById('categoria').value,
+        Duracion: parseInt(document.getElementById('duracion').value),
+        CuposDisponibles: parseInt(document.getElementById('cupos').value),
+        Activo: document.getElementById('activo').value === 'true'
     };
 
     submitBtn.disabled = true;
