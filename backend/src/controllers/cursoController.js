@@ -79,3 +79,25 @@ exports.eliminarCurso = async (req, res) => {
     res.status(500).json({ message: 'Error al eliminar el curso' });
   }
 };
+
+// Actualizar el estado (activo/inactivo) de un curso
+exports.actualizarEstadoCurso = async (req, res) => {
+  const { id } = req.params;
+  const { Activo } = req.body;
+  try {
+    const pool = await getConnection();
+    const result = await pool.request()
+      .input('Id', sql.Int, id)
+      .input('Activo', sql.Bit, Activo)
+      .query('UPDATE Cursos SET Activo = @Activo WHERE Id = @Id');
+
+    if (result.rowsAffected[0] > 0) {
+      res.status(200).json({ message: 'Estado del curso actualizado exitosamente' });
+    } else {
+      res.status(404).json({ message: 'Curso no encontrado' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar el estado del curso' });
+  }
+};

@@ -66,9 +66,34 @@ function renderCursos() {
                 <p>⏱ ${curso.Duracion} horas</p>
                 <p>👥 ${curso.CuposDisponibles} cupos</p>
             </div>
+            <button onclick="toggleEstadoCurso(${curso.Id}, ${curso.Activo})" style="margin-top: 15px; width: 100%; cursor: pointer; padding: 8px; border: none; border-radius: 4px; background-color: #6c757d; color: white;">
+                Cambiar a ${curso.Activo ? 'Inactivo' : 'Activo'}
+            </button>
         `;
         grid.appendChild(card);
     });
+}
+
+// Cambiar estado del curso
+async function toggleEstadoCurso(id, estadoActual) {
+    const nuevoEstado = !estadoActual;
+    try {
+        const response = await fetch(`${API_URL}/${id}/estado`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ Activo: nuevoEstado })
+        });
+
+        if (!response.ok) throw new Error('Error al actualizar el estado');
+
+        // Recargar la lista de cursos para reflejar los cambios
+        await loadCursos();
+    } catch (error) {
+        console.error(error);
+        alert('Hubo un error al cambiar el estado del curso.');
+    }
 }
 
 // Registrar nuevo curso
