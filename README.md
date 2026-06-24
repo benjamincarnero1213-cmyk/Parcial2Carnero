@@ -8,9 +8,9 @@ Este proyecto consta de un Backend (Node.js + Express + SQL Server) y un Fronten
 3. Base de datos creada con la siguiente estructura:
 
 ```sql
-CREATE DATABASE CursosDB;
+CREATE DATABASE CursosDBCarnero;
 GO
-USE CursosDB;
+USE CursosDBCarnero;
 GO
 CREATE TABLE Cursos (
     Id INT IDENTITY(1,1) PRIMARY KEY,
